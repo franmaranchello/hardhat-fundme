@@ -2,6 +2,7 @@ import { network } from "hardhat";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { networkConfig } from "../helper-hardhat-config";
 import "dotenv/config";
+import { verify } from "../utils/verify";
 
 module.exports = async (hre: HardhatRuntimeEnvironment) => {
     const { deploy, log } = hre.deployments;
@@ -15,16 +16,18 @@ module.exports = async (hre: HardhatRuntimeEnvironment) => {
         ethUsdPriceFeedAddress = networkConfig[chainId].ethUsdPriceFeed;
     }
 
+    const args = [ethUsdPriceFeedAddress];
     const fundMe = await deploy("FundMe", {
         from: deployer,
-        args: [ethUsdPriceFeedAddress],
+        args: args,
         log: true,
+        waitConfirmations: networkConfig[chainId].blockConfirmations,
     });
 
     log("FundMe deployed!");
 
     if (!networkConfig[chainId].isLocalDev && process.env.ETHERSCAN_API_KEY) {
-        // verify deployed contract on etherscan
+        await verify(fundMe.address, args);
     }
 
     log("-----------------------------------------------");
