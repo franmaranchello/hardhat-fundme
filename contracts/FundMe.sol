@@ -4,7 +4,7 @@ pragma solidity ^0.8.8;
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "./PriceConverter.sol";
 
-error Fundme__NotOwner();
+error FundMe__NotOwner();
 
 /**
  * @title A contract for crowd funding based on the freecodecamp web3 course
@@ -24,7 +24,7 @@ contract FundMe {
 
     modifier onlyOwner() {
         // require(msg.sender == owner);
-        if (msg.sender != owner) revert Fundme__NotOwner();
+        if (msg.sender != owner) revert FundMe__NotOwner();
         _;
     }
 
@@ -46,7 +46,6 @@ contract FundMe {
             msg.value.getConversionRate(priceFeedContract) >= MINIMUM_USD,
             "You need to spend more ETH!"
         );
-        // require(PriceConverter.getConversionRate(msg.value) >= MINIMUM_USD, "You need to spend more ETH!");
         addressToAmountFunded[msg.sender] += msg.value;
         funders.push(msg.sender);
     }
