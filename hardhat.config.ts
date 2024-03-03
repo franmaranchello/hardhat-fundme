@@ -22,15 +22,18 @@ const config: HardhatUserConfig = {
     networks: {
         hardhat: {
             chainId: 31337,
+            allowUnlimitedContractSize: true,
         },
         goerli: {
             url: GOERLI_RPC_URL,
             accounts: [GOERLI_PRIVATE_KEY],
             chainId: 5,
+            allowUnlimitedContractSize: true,
         },
         localhost: {
             url: "http://127.0.0.1:8545/",
             chainId: 31337,
+            allowUnlimitedContractSize: true,
         },
     },
 
@@ -39,11 +42,12 @@ const config: HardhatUserConfig = {
     },
 
     gasReporter: {
-        enabled: true,
+        enabled: false,
         outputFile: "./artifacts/build-info/gas-report.txt",
         noColors: true,
         currency: "USD",
         coinmarketcap: COINMARKETCAP_API_KEY,
+        token: "ETH",
     },
 
     namedAccounts: {

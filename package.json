@@ -1,5 +1,5 @@
 {
-  "name": "hardhat-simple-storage",
+  "name": "hardhat-fund-me",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/franmaranchello/hardhat-simple-storage.git",
@@ -32,5 +32,13 @@
     "ts-node": ">=8.0.0",
     "typechain": "^8.1.0",
     "typescript": ">=4.5.0"
+  },
+  "scripts": {
+    "test": "yarn hardhat test",
+    "test:staging": "yarn hardhat test --network goerli",
+    "lint": "yarn solhint 'contracts/*.sol'",
+    "lint:fix": "yarn solhint 'contracts/*.sol' --fix",
+    "format": "yarn prettier --write .",
+    "coverage": "yarn hardhat coverage"
   }
 }
